@@ -1,7 +1,7 @@
 var fs = require('fs');
 var scanText;
 var volumes =[];
-var avidJobs = [];
+var volumeStartIndexes = [];
 
 scanText = fs.readFileSync('/Users/danger/Documents/DaemonScans/scan.txt', 'utf8').toString().split("\n");
 
@@ -24,21 +24,23 @@ function getVolumes(){
       return volumes;
 };
 
-function getAvidJobs(){
+function getVolumeStartIndexes(){
+  var startIndex = 0;
   var scanLength = scanText.length;
   var scanData = scanText[0];
   scanData.substring(0, 3);
     for (var i = 0; i < scanLength; i++){
       var findData = scanText[i];
         if(findData.substring(0, 3) === "Mon"){
-          var x = i + 4;
-          //console.log(x);
-          //console.log(scanText[13]);
+          startIndex = i + 4;
+          volumeStartIndexes.push(startIndex);
+          console.log(startIndex);
         }
     }
+    return volumeStartIndexes;
 };
 
-getAvidJobs()
+getVolumeStartIndexes()
 //console.log(scanText[4]);
-//getVolumes();
+getVolumes();
 //console.log(volumes);
