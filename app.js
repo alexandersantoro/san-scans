@@ -2,11 +2,25 @@ var fs = require('fs');
 var scanText;
 var volumes =[];
 var volumeStartIndexes = [];
+
+var avidJobs = [];
 var avidStartIndex = 0;
 var avidEndIndex = 0;
 
-scanText = fs.readFileSync('/Users/danger/Documents/DaemonScans/scan.txt', 'utf8').toString().split("\n");
+var offlineJobs = [];
+var offlineStartIndex = 0;
+var offlineEndIndex = 0;
 
+var cameraJobs = [];
+var cameraStartIndex = 0;
+var cameraEndIndex = 0;
+
+var rawJobs = [];
+var rawStartIndex = 0;
+var rawEndIndex = 0;
+
+
+scanText = fs.readFileSync('/Users/danger/Documents/DaemonScans/scan.txt', 'utf8').toString().split("\n");
 
 function getVolumeNames(){
   var scanLength = scanText.length;
@@ -42,16 +56,70 @@ function getVolumeStartIndexes(){
     return volumeStartIndexes;
 };
 
-getVolumeStartIndexes()
+getVolumeStartIndexes();
 getVolumeNames();
 
 avidStartIndex = volumeStartIndexes[0];
-avidEndIndex = volumeStartIndexes[1] - 3;
+avidEndIndex = volumeStartIndexes[1] - 6;
 
-function avidJobs(){
-  
+function getAvidJobs(){
+  while (avidStartIndex < avidEndIndex){
+    avidJobs.push(scanText[avidStartIndex]);
+    avidStartIndex++;
+  }
+  return avidJobs;
 };
 
+offlineStartIndex = volumeStartIndexes[1];
+offlineEndIndex = volumeStartIndexes[2] - 6;
+
+function getOfflineJobs(){
+  while (offlineStartIndex < offlineEndIndex){
+    offlineJobs.push(scanText[offlineStartIndex]);
+    offlineStartIndex++;
+  }
+  return offlineJobs;
+};
+
+cameraStartIndex = volumeStartIndexes[2];
+cameraEndIndex = volumeStartIndexes[3] - 6;
+
+function getCameraJobs(){
+  while (cameraStartIndex < cameraEndIndex){
+    cameraJobs.push(scanText[cameraStartIndex]);
+    cameraStartIndex++;
+  }
+  return cameraJobs;
+};
+
+rawStartIndex = volumeStartIndexes[3];
+rawEndIndex = volumeStartIndexes[4] - 6;
+
+function getRawJobs(){
+  while (rawStartIndex < rawEndIndex){
+
+    rawJobs.push(scanText[rawStartIndex]);
+    rawStartIndex++;
+  }
+  return rawJobs;
+};
+//Jobs ON/OFF
+
+//getAvidJobs();
+//console.log(avidJobs);
+
+//getOfflineJobs();
+//console.log(getOfflineJobs());
+
+//getCameraJobs();
+//console.log(getCameraJobs());
+
+getRawJobs();
+console.log(getRawJobs());
+
+//OLD DEBUG
+
 //console.log(scanText[4]);
-console.log(avidStartIndex);
-console.log(avidEndIndex);
+//console.log(getVolumeStartIndexes());
+//console.log(avidStartIndex);
+//console.log(avidEndIndex);
